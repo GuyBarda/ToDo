@@ -11,7 +11,7 @@ function renderTodos() {
         ? todos.map((todo) => getTodoStrHTML(todo))
         : `<h1>No ${getFilterByStatus()} todos</h1>`;
 
-    document.querySelector("ul").innerHTML = strHTMLs.join("");
+    document.querySelector(".todo-content").innerHTML = strHTMLs.join("");
     document.querySelector("span.total").innerText = getTotalCount();
     document.querySelector("span.active").innerText = getActiveCount();
 }
