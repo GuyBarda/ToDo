@@ -1,3 +1,7 @@
+/* hr {
+    transform: rotate(90deg);
+} */
+
 .done {
     text-decoration: line-through;
 }
@@ -11,4 +15,13 @@
     padding: 0.75em 1em;
     background-color: lightcoral;
     margin-bottom: 10px;
+}
+
+.btn-close:hover {
+    background-color: #f44336;
+    color: white;
+}
+
+.input-filter::placeholder {
+    font-size: 0.8rem;
 }

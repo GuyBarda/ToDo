@@ -14,26 +14,26 @@ function getTodosForDisplay() {
     var todos = gTodos;
 
     // not working
-    todos.sort((a, b) => {
-        if (gSortBy === "txt") a.txt.localeCompare(b.txt);
-        else a[gSortBy] - b[gSortBy];
-    });
-    // switch (gSortBy) {
-    //     case "txt":
-    //         todos.sort((todo1, todo2) => {
-    //             if (todo1.txt.toLowerCase() < todo2.txt.toLowerCase()) return -1;
-    //             if (todo1.txt.toLowerCase() > todo2.txt.toLowerCase()) return 1;
-    //             else 0;
-    //         });
-    //         console.log(todos);
-    //         break;
-    //     case "createdAt":
-    //         todos.sort((todo1, todo2) => todo1.createdAt - todo2.createdAt);
-    //         break;
-    //     case "importance":
-    //         todos.sort((todo1, todo2) => todo1.importance - todo2.importance);
-    //         break;
-    // }
+    // todos.sort((a, b) => {
+    //     if (gSortBy === "txt") a.txt.localeCompare(b.txt);
+    //     else a[gSortBy] - b[gSortBy];
+    // });
+    switch (gSortBy) {
+        case "txt":
+            todos.sort((todo1, todo2) => {
+                if (todo1.txt.toLowerCase() < todo2.txt.toLowerCase()) return -1;
+                if (todo1.txt.toLowerCase() > todo2.txt.toLowerCase()) return 1;
+                else 0;
+            });
+            console.log(todos);
+            break;
+        case "createdAt":
+            todos.sort((todo1, todo2) => todo1.createdAt - todo2.createdAt);
+            break;
+        case "importance":
+            todos.sort((todo1, todo2) => todo1.importance - todo2.importance);
+            break;
+    }
     if (gFilterBy.status) {
         todos = todos.filter(
             (todo) => (todo.isDone && gFilterBy.status === "done") || (!todo.isDone && gFilterBy.status === "active")
@@ -88,60 +88,32 @@ function getActiveCount() {
 }
 
 function _createTodos() {
-    var todos = loadFromStorage(STORAGE_KEY);
-
-    if (!todos || !todos.length) {
-        todos = [
-            {
-                id: "t101",
-                txt: "Learn HTML",
-                isDone: true,
-                createdAt: Date.now(),
-                importance: 1,
-            },
-            {
-                id: "t102",
-                txt: "Master JS",
-                isDone: false,
-                createdAt: Date.now(),
-                importance: 1,
-            },
-            {
-                id: "t103",
-                txt: "Study CSS",
-                isDone: false,
-                createdAt: Date.now(),
-                importance: 1,
-            },
-        ];
-    }
-
-    gTodos = todos;
+    gTodos = loadFromStorage(STORAGE_KEY);
+    if (!gTodos || !gTodos.length) gTodos = _getDemoTodos();
     _saveTodosToStorage();
 }
 
-function _createTodo(txt, importance) {
-    const todo = {
+function _createTodo(txt, importance, isDone = false) {
+    return {
         id: _makeId(),
         txt,
-        isDone: false,
-        createdAt: Date.now(),
         importance,
+        isDone,
+        createdAt: Date.now(),
     };
-    return todo;
 }
 
 function _saveTodosToStorage() {
     saveToStorage(STORAGE_KEY, gTodos);
 }
 
-function _makeId(length = 5) {
-    var txt = "";
-    var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-    for (var i = 0; i < length; i++) {
-        txt += characters.charAt(Math.floor(Math.random() * characters.length));
-    }
-
-    return txt;
+function _getDemoTodos() {
+    return [
+        _createTodo("Master JS", 3),
+        _createTodo("Learn HTML", 1, true),
+        _createTodo("Study CSS", 2, true),
+        _createTodo("Buy a chair", 3),
+        _createTodo("Buy a new PC", 1),
+        _createTodo("Learn Bootstrap", 3),
+    ];
 }

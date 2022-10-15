@@ -19,44 +19,117 @@
 
         <h1 class="text-center mt-3">Todo</h1>
 
-        <!-- sort by -->
-        <!-- <div class="dropdown">
-            <button
-                class="btn btn-secondary dropdown-toggle"
-                type="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-            >
-                Sort by
-            </button>
-            <ul class="dropdown-menu" onchange="onSetSort(this.value)">
-                <li><a class="dropdown-item" value="txt">Text</a></li>
-                <li><a class="dropdown-item" value="createdAt">Created</a></li>
-                <li><a class="dropdown-item" value="importance">Importance</a></li>
-            </ul>
-        </div> -->
-        <section class="todo-sort">
-            <select onchange="onSetSort(this.value)">
-                <option value="txt">Text</option>
-                <option value="createdAt">Created</option>
-                <option value="importance">Importance</option>
-            </select>
-        </section>
-        <section class="todo-filter">
-            <select onchange="onSetFilter(this.value)">
-                <option value="">All</option>
-                <option value="active">Active</option>
-                <option value="done">Done</option>
-            </select>
-            <input type="text" oninput="onSetFilterByTxt(this.value)" placeholder="Type something..." />
-        </section>
-        <ul class="todo-content"></ul>
-        <section class="stat">Total: <span class="total">3</span> Active: <span class="active">2</span></section>
+        <!-- navbar -->
+        <nav class="navbar navbar-expand-lg bg-dark bg-gradient">
+            <div class="container-fluid">
+                <!-- headline -->
+
+                <span class="navbar-brand mb-0 h1 text-light">My ToDo List</span>
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active text-light" aria-current="page" href="#">Home</a>
+                        </li>
+
+                        <!-- sort -->
+                        <li class="nav-item dropdown">
+                            <a
+                                class="nav-link dropdown-toggle text-light"
+                                href="#"
+                                role="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                            >
+                                Sort
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <button class="dropdown-item" value="txt" onclick="onSetSort(this.value)">
+                                        Text
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="dropdown-item" value="created" onclick="onSetSort(this.value)">
+                                        Created
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="dropdown-item" value="importance" onclick="onSetSort(this.value)">
+                                        Importance
+                                    </button>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <!-- filter -->
+                        <li class="nav-item dropdown">
+                            <a
+                                class="nav-link dropdown-toggle text-light"
+                                href="#"
+                                role="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                            >
+                                Filter
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <button class="dropdown-item" value="" onclick="onSetFilter(this.value)">
+                                        All
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="dropdown-item" value="active" onclick="onSetFilter(this.value)">
+                                        Active
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="dropdown-item" value="done" onclick="onSetFilter(this.value)">
+                                        Done
+                                    </button>
+                                </li>
+                                <!-- <li><hr class="dropdown-divider" /></li> -->
+                                <!-- <span class="dropdown-item" href="#">Something else here</span> -->
+                                <input
+                                    type="text"
+                                    class="input-filter form-control p-1"
+                                    oninput="onSetFilterByTxt(this.value)"
+                                    placeholder="or by something specific"
+                                />
+                            </ul>
+                        </li>
+                    </ul>
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container-md">
+            <ul class="list-group list-group-flush todo-content"></ul>
+
+            <section class="stat">Total: <span class="total">3</span> Active: <span class="active">2</span></section>
+        </div>
+
         <form onsubmit="onAddTodo(event)">
             <input type="text" name="txt" placeholder="What todo?" />
             <input type="text" name="number" placeholder="importance(between 1-3)" />
             <button>Add</button>
         </form>
+
         <script
             src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
             integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
@@ -67,6 +140,7 @@
             integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk"
             crossorigin="anonymous"
         ></script>
+        <script src="js/utility.js"></script>
         <script src="js/services/storage.service.js"></script>
         <script src="js/services/todo.service.js"></script>
         <script src="js/main.js"></script>

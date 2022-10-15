@@ -17,10 +17,14 @@ function renderTodos() {
 }
 
 function getTodoStrHTML(todo) {
+    //prettier-ignore
     return `
-    <li class="${todo.isDone ? "done" : ""}" onclick="onToggleTodo('${todo.id}')">
-        ${todo.txt}
-        <button onclick="onRemoveTodo(event,'${todo.id}')" >X</button>
+    <li class="list-group-item ${todo.isDone ? "list-group-item-success text-decoration-line-through" : ""}" onclick="onToggleTodo('${todo.id}')">
+        <div class="row text-center fs-5">
+            <div class="col-4">${todo.txt}</div>
+            <div class="col-4">importance: ${todo.importance}</div>
+            <button type="button" class="btn-close col-4" onclick="onRemoveTodo(event,'${todo.id}')"></button>
+        </div>
     </li>
     `;
 }
@@ -33,7 +37,6 @@ function onRemoveTodo(ev, todoId) {
 }
 
 function onToggleTodo(todoId) {
-    console.log("Toggling:", todoId);
     toggleTodo(todoId);
     renderTodos();
 }
